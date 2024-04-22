@@ -17,7 +17,7 @@ app = FastAPI()
 
 client = Client(host='http://192.168.1.43:11434')
 global model
-model = "mistral"
+model = "llama3"
 
 
 @app.post("/getObjectAndSubject")
@@ -41,7 +41,7 @@ async def querry_mistral(query: str):
     prompt = """Ton but est d'analiser une requète qu'un utilisateur a fait à un lecteur de musique. Tu dois trouver une action et un sujet. 
     L'action ne peut être que "jouer" ou "pause", mais fait attention, l'utilisateur peut ne pas utiliser cette forme. 
     Le sujet peut être de n'importe quelle forme.
-    Répond ce que tu as trouvé sous la forme d'un format JSON comme celui ci: {action:"action";sujet:"sujet"}. 
+    Répond ce que tu as trouvé sous la forme d'un format JSON comme celui ci: {"action":"action", "sujet":"sujet"}. 
     Ne répond que le JSON. Voici la requète de l'utilisateur: """ + query
 
 
@@ -65,5 +65,8 @@ async def querry_mistral(query: str):
     print("Parsed JSON: ", parsedJson)
 
     jsonObject = json.loads(parsedJson)
+    if jsonObject["action"] == "jouer":
+        jsonObject["action"] = "play"
+
     return jsonObject
 
