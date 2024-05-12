@@ -39,7 +39,7 @@ async def querry_mistral(query: str):
     print("Query after processing: ", query)
 
     prompt = """Ton but est d'analiser une requète qu'un utilisateur a fait à un lecteur de musique. Tu dois trouver une action et un sujet. 
-    L'action ne peut être que "jouer" ou "pause", mais fait attention, l'utilisateur peut ne pas utiliser cette forme. 
+    L'action ne peut être que "jouer", "pause", "ajouter" ou "passer", mais fait attention, l'utilisateur peut ne pas utiliser cette forme. 
     Le sujet peut être de n'importe quelle forme.
     Répond ce que tu as trouvé sous la forme d'un format JSON comme celui ci: {"action":"action", "sujet":"sujet"}. 
     Ne répond que le JSON. Voici la requète de l'utilisateur: """ + query
